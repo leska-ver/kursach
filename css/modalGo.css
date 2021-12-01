@@ -1,0 +1,520 @@
+@font-face {
+  /* open-sans-regular*/
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''), url('../fonts/open-sans-v20-latin_cyrillic-regular.woff2') format('woff2'), url('../fonts/open-sans-v20-latin_cyrillic-regular.woff') format('woff');
+  font-display: swap;
+}
+
+@font-face {
+  /* open-sans-italic*/
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 400;
+  src: local(''), url('../fonts/open-sans-v20-latin_cyrillic-italic.woff2') format('woff2'), url('../fonts/open-sans-v20-latin_cyrillic-italic.woff') format('woff');
+  font-display: swap;
+}
+
+@font-face {
+  /* open-sans-semiBold*/
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 600;
+  src: local(''), url('../fonts/open-sans-v20-latin_cyrillic-600.woff2') format('woff2'), url('../fonts/open-sans-v20-latin_cyrillic-600.woff') format('woff');
+  font-display: swap;
+}
+
+@font-face {
+  /* open-sans-Bold*/
+  font-family: 'Open Sans';
+  /*MullerBold*/
+  font-style: normal;
+  font-weight: 700;
+  src: local(''), url('../fonts/open-sans-v20-latin_cyrillic-700.woff2') format('woff2'), url('../fonts/open-sans-v20-latin_cyrillic-700.woff') format('woff');
+  font-display: swap;
+}
+
+:root {
+  /*биб*/
+  --swiper-theme-color: transparent;
+  /*9.9*/
+  --burger-width: 30px;
+  --burger-height: 23px;
+  --burger-line-height: 2px;
+  --color-white: #fff;
+  --color-black: #333;
+  --color-black-0: #000;
+  --color-amethyst: #9d5cd0;
+  --color-dustyGray: #999;
+
+  /*В активе и в фокусе у разных элементов*/
+  --color-royal-purple: #7943A4;
+  --color-heliotrope: #C283F3;
+  --color-biloba-flower: #d1a9f0;
+  --color-silver: #cacaca;
+  --gap: 32px;
+}
+
+html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  min-width: 320px;
+  font-family: 'Open Sans', sans-serif;
+  /*Общий шрифт 600*/
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--color-black);
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+p,
+a {
+  /*перенос слов*/
+  word-wrap: break-word;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+button {
+  /*Лупа*/
+  background-color: inherit;
+  border: none;
+}
+
+.btn {
+  /*Общий стиль кнопок*/
+  position: relative;
+  padding: 16px 33px;
+  border: 2px solid var(--color-amethyst);
+  border-radius: 100px;
+  font-family: 'Open Sans';
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+  color: var(--color-white);
+  cursor: pointer;
+  transition: background-color .4s ease;
+}
+
+.label-hiden {
+  /*Лупа инпут*/
+  position: absolute;
+  left: -101%;
+}
+
+.container {
+  max-width: 1700px;
+  /*1700 не менять*/
+  margin-left: auto;
+  margin-right: auto;
+  padding-right: 50px;
+  padding-left: 50px;
+}
+
+.padding-bottom {
+  padding-bottom: var(--gap);
+}
+
+.section-title {
+  margin-bottom: 0;
+}
+
+.title-h1 {
+  font-family: 'Open Sans';
+  font-weight: 700;
+  font-size: 72px;
+  line-height: 82px;
+}
+
+.title-h2 {
+  font-family: 'Open Sans';
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 65px;
+  color: var(--color-black);
+}
+
+.title-h3 {
+  /*font-family как у body*/
+  font-size: 24px;
+  line-height: var(--gap);
+}
+
+.descr-p {
+  font-family: 'Open Sans';
+  font-weight: 400;
+  font-size: 16px;
+  line-height: var(--gap);
+}
+
+/**-modal-**/
+.modalGo-overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  /* background-color: rgba(0, 0, 0, 0.8); */
+  background-color: rgb(6 6 6 / 71%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 99999;
+  transition: all 0.3s ease-in-out;
+}
+
+.modalGo {
+  background-color: #fff;
+  width: 750px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: none;
+}
+
+.modalGo-overlay--visible {
+  /*Mak*/
+  opacity: 1;
+  visibility: visible;
+  transition: all 0.3s ease-in-out;
+}
+
+.modalGo--visible {
+  /*Mak*/
+  display: block;
+}
+
+.modalGo--visible:focus {
+  /*Для Таба, открывать модальное окно. Не трогать!!!*/
+  outline: 1px solid var(--color-amethyst)
+}
+
+.disable-scroll {
+  /*Mak*/
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+
+.modalGo:target {
+  display: block;
+  pointer-events: auto;
+}
+
+.modalGo__js-close {
+  position: absolute;
+  top: 13px;
+  right: 13px;
+  width: 30px;
+  height: 30px;
+  transition: background-color .4s ease-in-out;
+  cursor: pointer; 
+}
+
+.modalGo__js-close::before {
+  content: "";
+  position: absolute;
+  top: 13px;
+  left: 5px;
+  width: 20px;
+  height: 1px;
+  background-color: var(--color-black-0);
+  transform: rotate(45deg);
+  transition: background-color .4s ease-in-out;
+}
+
+.modalGo__js-close::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  width: 1px;
+  height: 20px;
+  background-color: var(--color-black-0);
+  transform: rotate(45deg);
+  transition: background-color .4s ease-in-out;
+}
+
+.modalGo__js-close:focus::before, .modalGo__js-close:focus::after {
+  background-color: var(--color-amethyst);
+}
+
+.modalGo__js-close:hover::before, .modalGo__js-close:hover::after {
+  background-color: var(--color-amethyst);
+}
+
+.modalGo__js-close:active::before, .modalGo__js-close:active::after {
+  background-color: var(--color-royal-purple);
+}
+
+.modalGo__container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: inherit;
+}
+
+.modalGo__info {  
+  position: relative;
+  padding: 50px 16px;
+  width: 55%;
+}
+
+.modalGo__h4 {
+    margin: 0;
+    font-family: 'Open Sans';
+    font-weight: 400;
+    font-size: 24px;
+    line-height: var(--gap);
+    color: var(--color-black);
+}
+
+.modalGo__form {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 0 0;
+    font-family: 'Open Sans';
+    font-weight: 400;
+    font-size: 16px;
+    line-height: var(--gap);
+  }
+ 
+  .modalGo__block-input {
+    position: relative;
+    display: flex;
+    flex-direction: column-reverse;
+    margin-bottom: 23px;
+  }
+
+  .modalGo__input {
+    padding: 10px 24px;
+    width: 82.8%;
+    border: 1px solid var(--color-black);
+    border-radius: 20px;
+    background-color: var(--color-white);
+    transition: background-color .4s ease-in-out;
+  }
+
+  .modalGo__input:focus, .modalGo__input:hover {
+    background-color: #eaeaea;
+    outline: none;
+  }
+
+  .js-validate-error-label {
+    /*биб*/
+    position: absolute;
+    top: -27px;
+    left: 19px;
+    padding: 1px 1px 1px 2px;
+    font-size: 12px;
+  }
+
+  /*Не удалять! В файле style.css тоже самое стоит т.к btn(style.css) главнее и он даёт свои стили кнопке*/
+  .modalGo__button {
+    margin-top: -1px;
+    padding: 8px 37.3px;
+    width: max-content;
+    color: var(--color-amethyst);
+    outline: none;
+    transition: background-color .4s ease-in-out, color .4s ease-in-out;
+  }
+
+  .modalGo__button::after {
+    content: "";
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    bottom: -6px;
+    left: -6px;
+    border: 2px solid var(--color-amethyst);
+    border-radius: 100px;
+    z-index: 10000;
+    opacity: 0;
+  }
+
+  .modalGo__button:focus::after {
+    opacity: 1;
+  }
+
+  .modalGo__button:active::after {
+  opacity: 0;
+  }
+
+  .modalGo__button:hover {
+    color: var(--color-white);
+    background-color: var(--color-amethyst);
+  }
+
+  .modalGo__button:active {
+    border: 2px solid var(--color-heliotrope);
+    background-color: var(--color-royal-purple);
+  }
+
+.header__top-arrow-link, .header__top-arrow-link-mobile {
+  /*Для focusa*/
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  color: var(--color-white);
+  cursor: pointer;
+}
+
+.modalGo__top-arrow-link {
+  position: relative;
+  margin-top: 15px;
+  padding: 10px 20px;
+  border: 2px solid transparent;
+  border-radius: 100px;
+  width: max-content;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  color: var(--color-amethyst);
+  cursor: pointer;
+  outline: none;
+  transition: all .4s ease-in-out;
+}
+
+.modalGo__top-arrow-link::after {
+  content: "";
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  bottom: -6px;
+  left: -6px;
+  border: 2px solid var(--color-amethyst);
+  border-radius: 100px;
+  z-index: 10000;
+  opacity: 0;
+}
+.modalGo__top-arrow-link:focus::after {
+  opacity: 1;
+}
+
+.modalGo__top-arrow-link:focus {
+  border: 2px solid var(--color-amethyst);
+}
+
+.modalGo__top-arrow-link:hover {
+  color: var(--color-white);
+  background-color: var(--color-amethyst);
+}
+
+.modalGo__top-arrow-link path {
+  transition: fill .4s ease-in-out;
+}
+
+.modalGo__top-arrow-link:hover path {
+  fill: var(--color-white);
+}
+/**Конец modal**/
+
+@media (max-width: 1434px) {
+  .modalGo__input {
+    padding-top: 11px;
+    padding-bottom: 9px;
+    padding-left: 23px;
+    width: 84.5%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .modalGo {
+    width: 494px;
+  }
+
+  .modalGo__info {
+    padding: 70px 50px;
+    width: 100%;
+  }
+  
+  .modalGo__js-close {
+    top: 15px;
+    right: 14px;
+  }
+}
+
+@media (max-width: 970px) {
+/*--gallery--768px*/
+  .gallery {
+    padding-bottom: 70px;
+  }
+
+  .modalGo {
+    width: 80%;
+  }
+
+  .modalGo__input {
+    width: 98.2%;
+  }
+}
+
+@media (max-width: 580px) {
+/*Модальное окно*/
+  .modalGo__container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .modalGo__info {
+    padding: 36px;
+  }
+  
+  .modalGo__h4 {
+    font-size: 18px;
+  }
+  
+  .modalGo__form {
+    padding-top: 17px;
+   }
+  
+  .modalGo__block-input {
+    margin-bottom: 20px;
+  }
+  
+  .modalGo__button {
+    margin-top: 0;
+    padding: 7px 33px 5px;
+    font-size: 12px;
+  }
+
+  .modalGo__js-close {
+    top: 5px;
+    right: 3px;
+  }
+}
+  
